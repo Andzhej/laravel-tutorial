@@ -124,8 +124,17 @@ class PostsController extends Controller
             'cover_image' => 'image|nullable|max:1999'
         ]);
 
+        //get post information
+        $post = Post::find($id);
+
         //handle file upload
         if($request->hasFile('cover_image')) {
+
+            //delete old image
+            if($post->cover_image != 'noimage.jpg') {
+                Storage::delete('public/cover_images/'.$post->cover_image);
+            }
+  
             //get filename with extension
             $filename_with_ext = $request->file('cover_image')->getClientOriginalName();
             //get just filename
@@ -137,9 +146,8 @@ class PostsController extends Controller
             //upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $filename_to_store);
         }
-
+        
         //create post
-        $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         if($request->hasFile('cover_image')) {
