@@ -8,7 +8,18 @@
         {!! $post->body !!}
     </div>
     <hr>
-    <small>Written on {{$post->created_at}} by {{$post->user->name}}</small>
+    <div class="row">
+        <div class="col-md-2 col-sm-2">
+            <small>Written on {{$post->created_at}} by {{$post->user->name}}</small>
+        </div>
+        @if($post->user->profile_picture)
+        <div class="col-md-1 col-sm-1">
+            <div class="profile-picture-small-container">
+                <img style="width:100%;" src='/storage/profile_pictures/{{$post->user->profile_picture}}' />
+            </div>
+        </div>
+        @endif
+    </div>
     <hr>
     @if(!Auth::guest())
         @if(Auth::user()->id == $post->user_id)

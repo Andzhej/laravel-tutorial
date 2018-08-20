@@ -3,3 +3,9 @@
     height:420px;
     overflow:hidden;
 }
+
+.profile-picture-small-container {
+    overflow:hidden;
+    height:80px;
+    display:inline-block;
+}
