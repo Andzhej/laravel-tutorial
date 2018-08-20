@@ -147,7 +147,7 @@ class PostsController extends Controller
             $path = $request->file('cover_image')->storeAs('public/cover_images', $filename_to_store);
         }
         
-        //create post
+        //update post
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         if($request->hasFile('cover_image')) {

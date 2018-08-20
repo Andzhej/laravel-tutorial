@@ -32,3 +32,5 @@ Route::resource('posts', 'PostsController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user-profile', 'UserController@index');
+Route::post('/user-profile/{user_id}', 'UserController@update');
