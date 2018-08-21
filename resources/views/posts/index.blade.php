@@ -11,15 +11,15 @@
                             <img style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
                         </div>
                         <div class="col-md-8 col-sm-8">
-                                <h4 class="card-title"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
-                                <small>Written at {{$post->created_at}} by <a href="/user/{{$post->user->id}}/user-posts">{{$post->user->name}}</a></small>
+                            <h4 class="card-title"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
+                            <small>Written at {{$post->created_at}} by <a href="/user/{{$post->user->id}}/user-posts">{{$post->user->name}}</a></small>
                         </div>
                     </div>
-            </div>
+                </div>
             </div>
         @endforeach
         <div class="float-right">
-        {{$posts->links()}}
+            {{$posts->links()}}
         </div>
     @else
         <p>No posts found</p>
