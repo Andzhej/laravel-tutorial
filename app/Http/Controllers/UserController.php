@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'get_user_posts']);
     }
 
     public function index()
@@ -60,7 +60,7 @@ class UserController extends Controller
     }
 
     public function get_user_posts($id) {
-        $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->paginate();
         return view('posts.index')->with('posts', $posts);
     }
 }

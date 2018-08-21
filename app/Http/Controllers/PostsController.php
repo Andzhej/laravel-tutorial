@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Post;
 
 class PostsController extends Controller
@@ -26,6 +27,9 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        foreach($posts as $post) {
+            $post['post_excerpt'] = Str::words(strip_tags($post->body), 50);
+        }
         return view('posts.index')->with('posts', $posts);
     }
 
