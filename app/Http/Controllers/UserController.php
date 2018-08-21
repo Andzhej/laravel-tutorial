@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 
 class UserController extends Controller
 {
@@ -26,12 +27,13 @@ class UserController extends Controller
         ]);
 
         $user = User::find($id);
-        
         //handle file upload
         if($request->hasFile('profile_picture')) {
 
-            //delete old image
-            Storage::delete('public/profile_pictures/'.$user->profile_picture);
+            //delete old image if exists
+            if($user->profile_picture) {
+                Storage::delete('public/profile_pictures/'.$user->profile_picture);
+            }
 
             //get filename with extension
             $filename_with_ext = $request->file('profile_picture')->getClientOriginalName();
@@ -48,10 +50,17 @@ class UserController extends Controller
         //update user profile
         $user->name = $request->input('name');
         $user->address = $request->input('address');
-        $user->profile_picture = $filename_to_store;
+        if($request->hasFile('profile_picture')) {
+            $user->profile_picture = $filename_to_store;
+        }
         $user->birthday = $request->input('birthday');
         $user->save();
 
-        return redirect('/user-profile')->with('success', 'User information updated');
+        return redirect('user/user-profile')->with('success', 'User information updated');
+    }
+
+    public function get_user_posts($id) {
+        $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        return view('posts.index')->with('posts', $posts);
     }
 }

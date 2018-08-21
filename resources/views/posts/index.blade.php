@@ -12,13 +12,15 @@
                         </div>
                         <div class="col-md-8 col-sm-8">
                                 <h4 class="card-title"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
-                                <small>Written at {{$post->created_at}} by {{$post->user->name}}</small>
+                                <small>Written at {{$post->created_at}} by <a href="/user/{{$post->user->id}}/user-posts">{{$post->user->name}}</a></small>
                         </div>
                     </div>
             </div>
             </div>
         @endforeach
+        <div class="float-right">
         {{$posts->links()}}
+        </div>
     @else
         <p>No posts found</p>
     @endif
