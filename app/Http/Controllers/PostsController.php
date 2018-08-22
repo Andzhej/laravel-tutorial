@@ -109,7 +109,6 @@ class PostsController extends Controller
             'prev' => $prev,
             'random' => $random_post
         ];
-        return $random_post;
         return view('posts.show')->with($data);
     }
 
