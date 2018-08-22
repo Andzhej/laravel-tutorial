@@ -9,8 +9,9 @@
         @if($next)
             <a href="/posts/{{$next->id}}" class="btn btn-outline-secondary">Next post</a>
         @endif
+            <a href="/posts/{{$random->id}}" class="btn btn-outline-secondary">Random post</a>
     </div>
-    <h1>{{$post->title}}</h1>
+    <h1 class="mt-3">{{$post->title}}</h1>
     @if($post->cover_image)
         <img class="mb-3" style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
     @else

@@ -97,10 +97,12 @@ class PostsController extends Controller
         //get next post
         $next = Post::where('id', '>', $id)->first();
         $prev = Post::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        $random_post = Post::inRandomOrder()->get()->first();
         $data = [
             'post' => $post,
             'next' => $next,
-            'prev' => $prev
+            'prev' => $prev,
+            'random' => $random_post
         ];
         return view('posts.show')->with($data);
     }
