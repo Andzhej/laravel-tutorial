@@ -2,6 +2,14 @@
 
 @section('content')
     <a href="/posts" class="btn btn-outline-secondary">Go back</a>
+    <div class="post-navigation-buttons float-right">
+        @if($prev)
+            <a href="/posts/{{$prev->id}}" class="btn btn-outline-secondary">Previous post</a>
+        @endif
+        @if($next)
+            <a href="/posts/{{$next->id}}" class="btn btn-outline-secondary">Next post</a>
+        @endif
+    </div>
     <h1>{{$post->title}}</h1>
     <img class="mb-3" style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
     <div>
