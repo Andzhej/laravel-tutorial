@@ -69,8 +69,6 @@ class PostsController extends Controller
             $filename_to_store = $filename.'_'.time().'.'.$extension;
             //upload image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $filename_to_store);
-        } else {
-            $filename_to_store = 'noimage.jpg';
         }
 
         //create post
@@ -78,7 +76,9 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
-        $post->cover_image = $filename_to_store;
+        if($request->hasFile('cover_image')) {
+            $post->cover_image = $filename_to_store;
+        }
         $post->rating = $request->input('rating');
         $post->save();
 
@@ -144,9 +144,7 @@ class PostsController extends Controller
         if($request->hasFile('cover_image')) {
 
             //delete old image
-            if($post->cover_image != 'noimage.jpg') {
-                Storage::delete('public/cover_images/'.$post->cover_image);
-            }
+            Storage::delete('public/cover_images/'.$post->cover_image);
   
             //get filename with extension
             $filename_with_ext = $request->file('cover_image')->getClientOriginalName();
@@ -186,10 +184,8 @@ class PostsController extends Controller
             return redirect('/posts')->with('error', 'Unauthorized page');
         }
 
-        if($post->cover_image != 'noimage.jpg') {
-            //delete the image
-            Storage::delete('public/cover_images/'.$post->cover_image);
-        }
+        //delete the image
+        Storage::delete('public/cover_images/'.$post->cover_image);
 
         $post->delete();
 

@@ -11,7 +11,11 @@
         @endif
     </div>
     <h1>{{$post->title}}</h1>
-    <img class="mb-3" style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
+    @if($post->cover_image)
+        <img class="mb-3" style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
+    @else
+        <img class="mb-3" style="width:100%" src='/images/noimage.jpg'>
+    @endif
     <div>
         {!! $post->body !!}
     </div>
