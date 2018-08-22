@@ -185,7 +185,9 @@ class PostsController extends Controller
         }
 
         //delete the image
-        Storage::delete('public/cover_images/'.$post->cover_image);
+        if($post->cover_image) {
+            Storage::delete('public/cover_images/'.$post->cover_image);
+        }
 
         $post->delete();
 
