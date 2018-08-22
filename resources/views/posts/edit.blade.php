@@ -14,6 +14,10 @@
         <div class="form-group">
             {{Form::file('cover_image')}}
         </div>
+        <div class="form-group">
+            {{Form::label('rating', 'Rating')}}
+            {{Form::selectRange('rating', 0, 5, $post->rating)}}
+        </div>
         {{Form::hidden('_method', 'PUT')}}
         {{Form::submit('Add Post', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}

@@ -79,6 +79,7 @@ class PostsController extends Controller
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
         $post->cover_image = $filename_to_store;
+        $post->rating = $request->input('rating');
         $post->save();
 
         return redirect('/posts')->with('success', 'Post Created');
@@ -157,6 +158,7 @@ class PostsController extends Controller
         if($request->hasFile('cover_image')) {
             $post->cover_image = $filename_to_store;
         }
+        $post->rating = $request->input('rating');
         $post->save();
 
         return redirect('/posts')->with('success', 'Post Updated');

@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
             {{Form::label('rating', 'Rating')}}
-            {{Form::selectRange('rating', 1, 5)}}
+            {{Form::selectRange('rating', 0, 5)}}
         </div>
         {{Form::submit('Add Post', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}

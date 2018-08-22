@@ -18,6 +18,13 @@
                 <img style="width:100%;" src='/storage/profile_pictures/{{$post->user->profile_picture}}' />
             </div>
         </div>
+        <div class="col-md-1 col-sm-1 offset-md-8">
+            <ul class="raiting">
+                @for ($i = 0; $i < 5; $i++)
+                    <li @if($post->rating > $i) class="colored" @endif></li>
+                @endfor
+            </ul>
+        </div>
         @endif
     </div>
     <hr>

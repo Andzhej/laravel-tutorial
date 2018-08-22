@@ -14,6 +14,11 @@
                             <h4 class="card-title"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
                             <p>{!! $post->post_excerpt !!} <a href="/posts/{{$post->id}}">Read more</a></p>
                             <small>Written at {{$post->created_at}} by <a href="/user/{{$post->user->id}}/user-posts">{{$post->user->name}}</a></small>
+                            <ul class="raiting">
+                            @for ($i = 0; $i < 5; $i++)
+                                <li @if($post->rating > $i) class="colored" @endif></li>
+                            @endfor
+                            </ul>
                         </div>
                     </div>
                 </div>
