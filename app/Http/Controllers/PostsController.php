@@ -26,9 +26,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
         foreach($posts as $post) {
-            $post['post_excerpt'] = Str::words(strip_tags($post->body), 50);
+            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40);
         }
         return view('posts.index')->with('posts', $posts);
     }
