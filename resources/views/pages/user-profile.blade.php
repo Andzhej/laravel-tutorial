@@ -31,7 +31,7 @@
                 @if($user->profile_picture)
                     <img style="width:100%" src='/storage/profile_pictures/{{$user->profile_picture}}' />
                 @else
-                    <img style="width:100%" src='/storage/profile_pictures/noimage.jpg' />
+                    <img style="width:100%" src='/images/noimage.jpg' />
                 @endif
             </div>
         </div>
