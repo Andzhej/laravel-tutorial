@@ -96,14 +96,20 @@ class PostsController extends Controller
         $post = Post::find($id);
         //get next post
         $next = Post::where('id', '>', $id)->first();
+        //get prev post
         $prev = Post::where('id', '<', $id)->orderBy('id', 'desc')->first();
-        $random_post = Post::inRandomOrder()->get()->first();
+        //get random post
+        do {
+            $random_post = Post::inRandomOrder()->get()->first();
+        } while ($random_post->id == $id);
+
         $data = [
             'post' => $post,
             'next' => $next,
             'prev' => $prev,
             'random' => $random_post
         ];
+        return $random_post;
         return view('posts.show')->with($data);
     }
 
