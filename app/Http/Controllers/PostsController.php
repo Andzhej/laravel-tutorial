@@ -28,7 +28,11 @@ class PostsController extends Controller
     {
         $posts = Post::orderBy('created_at', 'desc')->paginate(6);
         foreach($posts as $post) {
-            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40);
+            //limit by words
+            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40); 
+
+            //limit by characters
+            //$post['post_excerpt'] = Str::limit(strip_tags($post->body), 150); 
         }
         return view('posts.index')->with('posts', $posts);
     }
