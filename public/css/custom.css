@@ -28,3 +28,10 @@
 .raiting li.colored {
     background-color:#FFA500;
 }
+
+.cover-image {
+   width:100%;
+   height:300px;
+   background: #E3E3E3 center center no-repeat;
+   background-size: cover;
+}

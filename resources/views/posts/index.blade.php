@@ -7,9 +7,9 @@
         @foreach($posts as $post)
         <div class="card mb-3">
             @if($post->cover_image)
-                <img style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
+                <div class="cover-image" style="background-image:url('/storage/cover_images/{{$post->cover_image}}');"></div>
             @else
-                <img style="width:100%" src='/images/noimage.jpg'>
+                <div class="cover-image" style="/images/noimage.jpg"></div>
             @endif
             <div class="card-body">
                 <h4 class="card-title mt-3"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
