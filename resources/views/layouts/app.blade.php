@@ -17,6 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="/library/jQuery-tagEditor/jquery.tag-editor.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -30,9 +31,11 @@
         </main>
     </div>
     <script  src="{{ asset('js/app.js') }}"></script>
+    <script  src="{{ asset('js/custom.js') }}"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'article-ckeditor' );
     </script>
+    <script src="/library/jQuery-tagEditor/jquery.tag-editor.min.js"></script>
 </body>
 </html>

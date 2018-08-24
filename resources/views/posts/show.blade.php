@@ -15,7 +15,7 @@
     @if($post->cover_image)
         <img class="mb-3" style="width:100%" src='/storage/cover_images/{{$post->cover_image}}'>
     @else
-        <img class="mb-3" style="width:100%" src='/images/noimage.jpg'>
+        <img class="mb-3" style="width:100%" src='/images/noimage.png'>
     @endif
     <div>
         {!! $post->body !!}
@@ -31,7 +31,18 @@
                 <img style="width:100%;" src='/storage/profile_pictures/{{$post->user->profile_picture}}' />
             </div>
         </div>
-        <div class="col-md-1 col-sm-1 offset-md-8">
+        <div class="col-md-3 col-sm-3 offset-md-5">
+            <div class="tags">
+                @if(count($post->tags) > 1)
+                <ul class="tag-list">
+                    @foreach($post->tags as $tag)
+                        <li>{{$tag}}</li>
+                    @endforeach
+                </ul>
+                @endif
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-1">
             <ul class="raiting">
                 @for ($i = 0; $i < 5; $i++)
                     <li @if($post->rating > $i) class="colored" @endif></li>

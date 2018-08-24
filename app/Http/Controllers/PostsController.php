@@ -29,10 +29,12 @@ class PostsController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->paginate(6);
         foreach($posts as $post) {
             //limit by words
-            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40); 
-
+            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40);
             //limit by characters
             //$post['post_excerpt'] = Str::limit(strip_tags($post->body), 150); 
+
+            //explode tags to array from string
+            $post['tags'] = explode(',', $post->tags);
         }
         return view('posts.index')->with('posts', $posts);
     }
@@ -84,6 +86,7 @@ class PostsController extends Controller
             $post->cover_image = $filename_to_store;
         }
         $post->rating = $request->input('rating');
+        $post->tags = $request->input('tags');
         $post->save();
 
         return redirect('/posts')->with('success', 'Post Created');
@@ -106,6 +109,10 @@ class PostsController extends Controller
         do {
             $random_post = Post::inRandomOrder()->get()->first();
         } while ($random_post->id == $id);
+
+        //get tags
+        //explode tags to array from string
+        $post['tags'] = explode(',', $post->tags);
 
         $data = [
             'post' => $post,
@@ -176,6 +183,7 @@ class PostsController extends Controller
             $post->cover_image = $filename_to_store;
         }
         $post->rating = $request->input('rating');
+        $post->tags = $request->input('tags');
         $post->save();
 
         return redirect('/posts')->with('success', 'Post Updated');

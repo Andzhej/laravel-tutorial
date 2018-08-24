@@ -18,6 +18,11 @@
             {{Form::label('rating', 'Rating')}}
             {{Form::selectRange('rating', 0, 5, $post->rating)}}
         </div>
+        <div class="form-group">
+            {{Form::label('tags', 'Tags')}}
+            <small>( Seperate with Enter key, max 8 tags, max 25 symbols/tag )</small>
+            {{Form::text('tags', $post->tags)}}
+        </div>
         {{Form::hidden('_method', 'PUT')}}
         {{Form::submit('Add Post', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}
