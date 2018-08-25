@@ -31,7 +31,7 @@
                 <img style="width:100%;" src='/storage/profile_pictures/{{$post->user->profile_picture}}' />
             </div>
         </div>
-        <div class="col-md-3 col-sm-3 offset-md-5">
+        <div class="col-md-4 col-sm-5 offset-md-4">
             <div class="tags">
                 @if(count($post->tags) > 1)
                 <ul class="tag-list">
