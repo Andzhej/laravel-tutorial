@@ -23,7 +23,7 @@
     <hr>
     <div class="row">
         <div class="col-md-2 col-sm-2">
-            <small>Written on {{$post->created_at}} by {{$post->user->name}}</small>
+            <small>Written on {{$post->created_at}} by <a href="/user/{{$post->user->id}}/user-posts">{{$post->user->name}}</a></small>
         </div>
         @if($post->user->profile_picture)
         <div class="col-md-1 col-sm-1">
