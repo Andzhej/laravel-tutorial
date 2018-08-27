@@ -24,6 +24,6 @@
             {{Form::text('tags', $post->tags)}}
         </div>
         {{Form::hidden('_method', 'PUT')}}
-        {{Form::submit('Add Post', ['class' => 'btn btn-primary'])}}
+        {{Form::submit('Update Post', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}
 @endsection

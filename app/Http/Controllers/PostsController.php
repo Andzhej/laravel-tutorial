@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Post;
+use Purifier;
 
 class PostsController extends Controller
 {
@@ -80,7 +81,7 @@ class PostsController extends Controller
         //create post
         $post = new Post;
         $post->title = $request->input('title');
-        $post->body = $request->input('body');
+        $post->body = Purifier::clean($request->input('body'));
         $post->user_id = auth()->user()->id;
         if($request->hasFile('cover_image')) {
             $post->cover_image = $filename_to_store;
@@ -178,7 +179,7 @@ class PostsController extends Controller
         
         //update post
         $post->title = $request->input('title');
-        $post->body = $request->input('body');
+        $post->body = Purifier::clean($request->input('body'));
         if($request->hasFile('cover_image')) {
             $post->cover_image = $filename_to_store;
         }
@@ -186,7 +187,7 @@ class PostsController extends Controller
         $post->tags = $request->input('tags');
         $post->save();
 
-        return redirect('/posts')->with('success', 'Post Updated');
+        return redirect('/posts/'.$id)->with('success', 'Post Updated');
     }
 
     /**
