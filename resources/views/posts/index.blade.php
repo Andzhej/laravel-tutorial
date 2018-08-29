@@ -12,7 +12,7 @@
     @if(count($posts) > 0)
         <div class="row">
         @foreach($posts as $post)
-        <div class="col-md-4 col-lg-4">
+        <div class="col-md-12 col-lg-12">
         <div class="card mb-3">
             @if($post->cover_image)
                 <div class="cover-image" style="background-image:url('/storage/cover_images/{{$post->cover_image}}');"></div>
