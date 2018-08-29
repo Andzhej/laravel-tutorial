@@ -27,7 +27,16 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+   
+        //filters
+        if(request()->has('rating')) {
+            $posts = Post::orderBy('rating', 'desc')->paginate(6)->appends('rating', request('rating'));
+        } else if(request()->has('title')) {
+            $posts = Post::orderBy('title', 'asc')->paginate(6)->appends('title', request('title'));
+        } else {
+            $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+        }
+
         foreach($posts as $post) {
             //limit by words
             $post['post_excerpt'] = Str::words(strip_tags($post->body), 40);

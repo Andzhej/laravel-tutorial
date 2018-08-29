@@ -1,10 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Posts</h1>
+    <h1 class="float-left">Posts</h1>
+    <div class="filter-links float-right">
+    <span>Filter: </span>
+    <a href="/posts/?rating=true">By rating</a> |
+    <a href="/posts/?title=true">By title</a> |
+    <a href="/posts">Reset</a>
+    </div>
+    <div style="clear:both;"></div>
     @if(count($posts) > 0)
-        <div class="card-columns">
+        <div class="row">
         @foreach($posts as $post)
+        <div class="col-md-4 col-lg-4">
         <div class="card mb-3">
             @if($post->cover_image)
                 <div class="cover-image" style="background-image:url('/storage/cover_images/{{$post->cover_image}}');"></div>
@@ -30,6 +38,7 @@
                     @endif
                 </div>
             </div>
+        </div>
         </div>
         @endforeach
     </div>
