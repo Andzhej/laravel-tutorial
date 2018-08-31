@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Continent;
 use Purifier;
 
 class PostsController extends Controller
@@ -46,7 +47,17 @@ class PostsController extends Controller
             //explode tags to array from string
             $post['tags'] = explode(',', $post->tags);
         }
-        return view('posts.index')->with('posts', $posts);
+
+        //get continents
+        $continents = Continent::orderBy('name', 'asc')->get();
+
+        $data = [
+            'posts' => $posts,
+            'continents' => $continents
+        ];
+
+        
+        return view('posts.index')->with($data);
     }
 
     /**
@@ -56,7 +67,12 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        //get continents
+        //$continents = Continent::orderBy('name', 'asc')->get();
+
+        $continents = Continent::pluck('name','id')->toArray();
+    
+        return view('posts.create')->with('continents', $continents);
     }
 
     /**
@@ -70,7 +86,8 @@ class PostsController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
-            'cover_image' => 'image|nullable|max:1999'
+            'cover_image' => 'image|nullable|max:1999',
+            'continent' => 'required'
         ]);
 
         //handle file upload
@@ -96,6 +113,7 @@ class PostsController extends Controller
             $post->cover_image = $filename_to_store;
         }
         $post->rating = $request->input('rating');
+        $post->continent_id = $request->input('continent');
         $post->tags = $request->input('tags');
         $post->save();
 
@@ -172,7 +190,9 @@ class PostsController extends Controller
         if($request->hasFile('cover_image')) {
 
             //delete old image
-            Storage::delete('public/cover_images/'.$post->cover_image);
+            if($post->cover_image) {
+                Storage::delete('public/cover_images/'.$post->cover_image);
+            }
   
             //get filename with extension
             $filename_with_ext = $request->file('cover_image')->getClientOriginalName();
@@ -221,5 +241,44 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect('/posts')->with('success', 'Post Deleted');
+    }
+
+    public function continent($id) {
+        //query log
+        //\DB::enableQueryLog();
+        //Continent::find($id)->posts()->latest()->paginate(6)->render();
+        //dd(\DB::getQueryLog());
+
+        if(request()->has('rating')) {
+            $posts = Continent::find($id)->posts()->orderBy('rating', 'desc')->paginate(6)->appends('rating', request('rating'));
+        } else if(request()->has('title')) {
+            $posts = Continent::find($id)->posts()->orderBy('title', 'asc')->paginate(6)->appends('title', request('title'));
+        } else {
+            $posts = Continent::find($id)->posts()->latest()->paginate(6);
+        }
+
+        //get continent name
+        $selected_continent = Continent::find($id);
+
+        foreach($posts as $post) {
+            //limit by words
+            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40);
+            //limit by characters
+            //$post['post_excerpt'] = Str::limit(strip_tags($post->body), 150); 
+
+            //explode tags to array from string
+            $post['tags'] = explode(',', $post->tags);
+        }
+
+        //get continents
+        $continents = Continent::orderBy('name', 'asc')->get();
+
+        $data = [
+            'posts' => $posts,
+            'continents' => $continents,
+            'selected_continent' => $selected_continent,
+        ];
+
+        return view('posts.continent')->with($data);
     }
 }

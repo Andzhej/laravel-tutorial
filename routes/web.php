@@ -31,6 +31,8 @@ Route::get('/services', 'PagesController@services');
 Route::resource('posts', 'PostsController');
 Auth::routes();
 
+Route::get('/posts/continent/{category_id}', 'PostsController@continent');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 //User

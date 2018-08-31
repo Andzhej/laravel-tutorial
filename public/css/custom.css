@@ -14,7 +14,6 @@
     list-style-type: none;
     padding:0;
     margin:0;
-    float:right;
 }
 .raiting li {
     float:left;
@@ -57,4 +56,31 @@
     white-space: nowrap;
     border-radius: 2px 0 0 2px;
     margin-bottom:5px;
+}
+
+.continent-list {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+}
+
+.widget {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.widget > .widget-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.continent-list a {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    display:block;
+    padding:5px 10px;
+}
+
+.continent-list li:last-child a {
+    border:none;
 }

@@ -8,6 +8,6 @@ $(document).ready(function() {
 
     $('#tags').tagEditor({
         maxTags:8,
-        maxLength: 25
+        maxLength: 35
     });
   });
