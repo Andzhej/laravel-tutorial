@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Continent;
 
 class UserController extends Controller
 {
@@ -60,7 +61,14 @@ class UserController extends Controller
     }
 
     public function get_user_posts($id) {
-        $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->paginate();
-        return view('posts.index')->with('posts', $posts);
+        $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->paginate(6);
+        //get continents
+        $continents = Continent::orderBy('name', 'asc')->get();
+
+        $data = [
+            'posts' => $posts,
+            'continents' => $continents
+        ];
+        return view('posts.index')->with($data);
     }
 }
