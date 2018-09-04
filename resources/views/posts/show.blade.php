@@ -31,7 +31,7 @@
                 <img style="width:100%;" src='/storage/profile_pictures/{{$post->user->profile_picture}}' />
             </div>
         </div>
-        <div class="col-md-4 col-sm-5 offset-md-4">
+        <div class="col-md-4 col-sm-4 offset-md-2">
             <div class="tags">
                 @if(count($post->tags) > 1)
                 <ul class="tag-list">
@@ -41,6 +41,9 @@
                 </ul>
                 @endif
             </div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <img class="mb-3" src='/images/continents/{{$post->continent->icon}}'>
         </div>
         <div class="col-md-1 col-sm-1">
             <ul class="raiting">
