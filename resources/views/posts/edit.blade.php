@@ -11,8 +11,18 @@
             {{Form::label('body', 'Body')}}
             {{Form::textarea('body', $post->body, ['id' => 'article-ckeditor','class' => 'form-control', 'placeholder' => 'Body text'])}}
         </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <div class="form-group">
+                    {{Form::select('continent', $continents, $post->continent_id, ['class' => 'form-control'])}}
+                </div>
+            </div>
+        </div>
         <div class="form-group">
-            {{Form::file('cover_image')}}
+            <label class="btn btn-primary">
+                Cover image
+                {{Form::file('cover_image', ['class' => 'd-none'])}}
+            </label>
         </div>
         <div class="form-group">
             {{Form::label('rating', 'Rating')}}

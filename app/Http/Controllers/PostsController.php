@@ -18,7 +18,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'continent']]);
     }
 
     /**
@@ -161,11 +161,18 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 
+        $continents = Continent::pluck('name','id')->toArray();
+
+        $data = [
+            'post' => $post,
+            'continents' =>$continents
+        ];
+
         //check for correct user
         if(auth()->user()->id !== $post->user_id) {
             return redirect('/posts')->with('error', 'Unauthorized page');
         }
-        return view('posts.edit')->with('post', $post);
+        return view('posts.edit')->with($data);
     }
 
     /**
