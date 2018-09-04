@@ -48,8 +48,8 @@
                             @endforeach
                         </div>
                         <div class="float-right">
-                                {{$posts->links()}}
-                            </div>
+                            {{$posts->links()}}
+                        </div>
                         @else
                             <p>No posts found</p>
                         @endif

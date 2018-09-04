@@ -35,6 +35,9 @@
                                 </tr>
                             @endforeach
                         </table>
+                    <div class="float-right">
+                        {{$posts->links()}}
+                    </div>
                     @else
                     <p>You have no posts</p>
                     @endif
