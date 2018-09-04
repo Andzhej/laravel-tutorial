@@ -13,7 +13,16 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <a class="btn btn-primary" href="/posts/create">Create Post</a>
+                    <div class="clearfix">
+                    {!! Form::open(['action' => ['HomeController@search'], 'class' => 'float-left form-inline']) !!}
+                        <div class="form-group">
+                            {{Form::text('title', (!empty($search_title) ? $search_title : ''), ['class' => 'form-control mr-2', 'placeholder' => 'Search by title', 'autocomplete' => 'off'])}}
+                            {{Form::submit('Seach', ['class' => 'btn btn-success'])}}
+                            <a href="/home" class="btn btn-warning ml-2">Reset</a>
+                        </div>
+                        {!! Form::close() !!}
+                        <a class="btn btn-primary float-right " href="/posts/create">Create Post</a>
+                    </div>
                     <h3 class="mt-2">Your blog posts</h3>
                     @if(count($posts) > 0)
                         <table class="table table-striped">

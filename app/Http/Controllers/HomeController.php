@@ -26,6 +26,24 @@ class HomeController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id)->posts()->latest()->paginate(8);
-        return view('home')->with('posts', $user);
+        $data = [
+            'posts' => $user
+        ];
+        return view('home')->with($data);
     }
+
+    public function search(Request $request) {
+        if($request->has('title')) {
+            $user_id = auth()->user()->id;
+            $user = User::find($user_id)->posts()->where('title', 'like', '%'.$request->input('title').'%')->latest()->paginate(8);
+        }
+
+        $data = [
+            'posts' => $user,
+            'search_title' => $request->input('title')
+        ];
+
+        return view('home')->with($data);
+    }
+
 }
