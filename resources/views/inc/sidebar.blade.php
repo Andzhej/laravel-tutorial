@@ -2,7 +2,7 @@
     <div class="sidebar-right">
         @if(count($continents) > 0)
         <div class="widget mb-3">
-            <div class="widget-header">Continents</div>
+            <div class="widget-header"><span>Continents</span></div>
             <div class="widget-body">
                 <ul class="continent-list">
                     @foreach($continents as $continent)
@@ -13,6 +13,26 @@
                             </a>
                         </li>
                         @endif
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        @endif
+
+        @if(count($popular_posts) > 0)
+        <div class="widget mb-3">
+            <div class="widget-header">
+                <span>Popular posts</span>
+                <ul class="raiting mt-2 float-right">
+                    @for ($i = 0; $i < 5; $i++)
+                        <li class="colored"></li>
+                    @endfor
+                </ul>
+            </div>
+            <div class="widget-body">
+                <ul class="continent-list">
+                    @foreach($popular_posts as $popular_post)
+                        <li><a href="/posts/{{$popular_post->id}}">{{$popular_post->title}}</a></li>
                     @endforeach
                 </ul>
             </div>

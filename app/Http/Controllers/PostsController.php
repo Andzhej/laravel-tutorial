@@ -51,9 +51,13 @@ class PostsController extends Controller
         //get continents
         $continents = Continent::orderBy('name', 'asc')->get();
 
+        //get most popular posts
+        $popular = Post::orderBy('rating', 'desc')->orderBy('created_at', 'desc')->limit(5)->get();
+
         $data = [
             'posts' => $posts,
-            'continents' => $continents
+            'continents' => $continents,
+            'popular_posts' => $popular
         ];
 
         
