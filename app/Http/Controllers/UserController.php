@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\User;
 use App\Post;
 use App\Continent;
@@ -65,9 +66,27 @@ class UserController extends Controller
         //get continents
         $continents = Continent::orderBy('name', 'asc')->get();
 
+        //get most popular posts
+        $popular = Post::where('rating', 5)->orderBy('created_at', 'desc')->limit(5)->get();
+
+        foreach($posts as $post) {
+            //limit by words
+            $post['post_excerpt'] = Str::words(strip_tags($post->body), 40);
+            //limit by characters
+            //$post['post_excerpt'] = Str::limit(strip_tags($post->body), 150); 
+
+            //explode tags to array from string
+            $post['tags'] = explode(',', $post->tags);
+        }
+
+        //get authors and their post count
+        $author_posts = User::get();
+
         $data = [
             'posts' => $posts,
-            'continents' => $continents
+            'continents' => $continents,
+            'popular_posts' => $popular,
+            'author_posts' => $author_posts
         ];
         return view('posts.index')->with($data);
     }

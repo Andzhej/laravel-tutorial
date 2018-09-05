@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Continent;
+use App\User;
 use Purifier;
 
 class PostsController extends Controller
@@ -54,10 +55,14 @@ class PostsController extends Controller
         //get most popular posts
         $popular = Post::where('rating', 5)->orderBy('created_at', 'desc')->limit(5)->get();
 
+        //get authors and their post count
+        $author_posts = User::get();
+
         $data = [
             'posts' => $posts,
             'continents' => $continents,
-            'popular_posts' => $popular
+            'popular_posts' => $popular,
+            'author_posts' => $author_posts
         ];
 
         
@@ -287,11 +292,15 @@ class PostsController extends Controller
         //get most popular posts
         $popular = Post::where('rating', 5)->orderBy('created_at', 'desc')->limit(5)->get();
 
+        //get authors and their post count
+        $author_posts = User::get();
+
         $data = [
             'posts' => $posts,
             'continents' => $continents,
             'selected_continent' => $selected_continent,
-            'popular_posts' => $popular
+            'popular_posts' => $popular,
+            'author_posts' => $author_posts
         ];
 
         return view('posts.continent')->with($data);

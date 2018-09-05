@@ -38,5 +38,24 @@
             </div>
         </div>
         @endif
+
+        @if(count($author_posts) > 0)
+        <div class="widget mb-3">
+            <div class="widget-header">
+                <span>Author post count</span>
+            </div>
+            <div class="widget-body">
+                <ul class="continent-list">
+                    @foreach($author_posts as $author_post)
+                    <li>
+                        <a href="/user/{{$author_post->id}}/user-posts">{{$author_post->name}}
+                            <span class="badge badge-warning float-right">{{$author_post->posts->count()}}</span>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
